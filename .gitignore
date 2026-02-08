@@ -3,10 +3,13 @@ venv/
 .env/
 .venv/
 
+
 # Caché de Python
 __pycache__/
 ../__pycache__/
 *.py[cod]
+./tools/__pycache__/
+
 
 # Flake8
 .flake8
