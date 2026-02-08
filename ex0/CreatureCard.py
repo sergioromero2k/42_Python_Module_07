@@ -4,6 +4,7 @@
 Module for the concrete implementation of Creature cards.
 """
 from ex0.Card import Card
+from typing import Any, Dict
 
 
 class CreatureCard(Card):
@@ -23,7 +24,7 @@ class CreatureCard(Card):
             raise ValueError("Health must be a positive integer")
         self.health = health
 
-    def play(self, game_state: dict) -> dict:
+    def play(self, game_state: Dict[str, Any]) -> Dict[str, Any]:
         # Implementation of the abstract play method from Card
         return {
             "card_played": self.name,
@@ -31,7 +32,7 @@ class CreatureCard(Card):
             "effect": "Creature summoned to battlefield"
         }
 
-    def attack_target(self, target: str) -> dict:
+    def attack_target(self, target: str) -> Dict[str, Any]:
         # Specific behavior for creature combat
         return {
             "attacker": self.name,
