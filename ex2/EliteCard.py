@@ -6,7 +6,7 @@ from ex2.Combatable import Combatable
 from ex2.Magical import Magical
 
 """
-EliteCard implementation merging comabt and magical abilities.
+EliteCard implementation merging combat and magical abilities.
 Demonstrates multiple inheritance from Card, Combatable, and Magical.
 """
 
@@ -27,7 +27,7 @@ class EliteCard(Card, Combatable, Magical):
         self.mana_pool = 4
 
     def play(self, game_state: Dict[str, Any]) -> Dict[str, Any]:
-        # IMplementation of the abstract play method.
+        # Implementation of the abstract play method.
         return (
             {
                 "card_played": self.name,
