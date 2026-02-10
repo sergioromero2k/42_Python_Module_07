@@ -4,49 +4,70 @@ from ex0.CreatureCard import CreatureCard
 from ex1.ArtifactCard import ArtifactCard
 from ex1.SpellCard import SpellCard
 from ex1.Deck import Deck
+from tools.card_generator import CardGenerator
 
-"""Execution script to demonstrate deck building and polymorphism."""
+"""Execution script to demonstrate deck building using CardGenerator."""
 
 
 def main() -> None:
-    # Display header for the deck builder demonstration
-    print("=== DataDeck Deck Builder ===")
-    print("")
+    print("=== DataDeck Deck Builder ===\n")
 
-    # Initialize deck and add various card types to test stats
-    # Costs (5, 4, 3) are chosen to result in an average of 4.0
+    # Initialize card generator
+    generator = CardGenerator()
+
+    # Retrieve card data from generator
+    creature_data = generator.get_creature("Fire Dragon")
+    spell_data = generator.get_spell("Lightning Bolt")
+    artifact_data = generator.get_artifact("Mana Crystal")
+
+    # Instantiate concrete card objects
+    creature_card = CreatureCard(
+        creature_data["name"],
+        creature_data["cost"],
+        creature_data["rarity"],
+        creature_data["attack"],
+        creature_data["health"]
+    )
+
+    spell_card = SpellCard(
+        spell_data["name"],
+        spell_data["cost"],
+        spell_data["rarity"],
+        spell_data["effect_type"]
+    )
+
+    artifact_card = ArtifactCard(
+        artifact_data["name"],
+        artifact_data["cost"],
+        artifact_data["rarity"],
+        artifact_data["durability"],
+        artifact_data["effect"]
+    )
+
+    # Build deck and add cards
     deck = Deck()
-    deck.add_card(SpellCard("Lightning Bolt", 5, "Normal", "damage"))
-    deck.add_card(ArtifactCard("Mana Crystal", 4, "Normal", 1, "mana"))
-    deck.add_card(CreatureCard("Fire Dragon", 3, "Legendary", 7, 5))
+    for card in [spell_card, artifact_card, creature_card]:
+        deck.add_card(card)
 
     print("Building deck with different card types...")
-    print(f"Deck stats: {deck.get_deck_stats()}")
-    print("")
+    print(f"Deck stats: {deck.get_deck_stats()}\n")
 
-    print("Drawing and playing cards:")
-    print("")
+    print("Drawing and playing cards:\n")
+    while deck.get_deck_stats()["total_cards"] > 0:
+        card = deck.draw_card()
+        if card is None:
+            break
 
-    # Demonstrate drawing and playing the first card (Spell)
-    card1 = deck.draw_card()
-    if card1:
-        print(f"Drew: {card1.name} (Spell)")
-        print(f"Play result: {card1.play({})}")
-        print("")
+        # Determine card type dynamically
+        type_name = "Creature"
+        if isinstance(card, SpellCard):
+            type_name = "Spell"
+        elif isinstance(card, ArtifactCard):
+            type_name = "Artifact"
 
-    # Demonstrate drawing and playing the second card (Artifact)
-    card2 = deck.draw_card()
-    if card2:
-        print(f"Drew: {card2.name} (Artifact)")
-        print(f"Play result: {card2.play({})}")
-        print("")
-
-    # Demonstrate drawing and playing the third card (Creature)
-    card3 = deck.draw_card()
-    if card3:
-        print(f"Drew: {card3.name} (Creature)")
-        print(f"Play result: {card3.play({})}")
-        print("")
+        # Print drawn card and play result
+        print(f"Drew: {card.name} ({type_name})")
+        print(f"Play result: {card.play({})}\n")
 
     print("Polymorphism in action: Same interface, different card behaviors!")
 

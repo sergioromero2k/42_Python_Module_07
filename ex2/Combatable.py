@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 from abc import ABC, abstractmethod
-from typing import Any, Dict
 # Authorized: abc, typing, enum, random, print()
 
 """
@@ -16,16 +15,16 @@ class Combatable(ABC):
     Any class inheriting from this must implement attack and defense logic.
     """
     @abstractmethod
-    def attack(self, target: str) -> Dict[str, Any]:
+    def attack(self, target: str) -> dict:
         # Execute an attack against a target.
         pass
 
     @abstractmethod
-    def defend(self, incoming_damage: int) -> Dict[str, Any]:
+    def defend(self, incoming_damage: int) -> dict:
         # Process incoming damage to the card.
         pass
 
     @abstractmethod
-    def get_combat_stats(self) -> Dict[str, Any]:
+    def get_combat_stats(self) -> dict:
         # Retrieve the current combat attributes (attack and health).
         pass

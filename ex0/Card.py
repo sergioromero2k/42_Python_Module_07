@@ -5,7 +5,6 @@ Module defining the abstract foundation for all game cards.
 """
 
 from abc import ABC, abstractmethod
-from typing import Any, Dict
 
 
 class Card(ABC):
@@ -16,11 +15,11 @@ class Card(ABC):
         self.rarity = rarity
 
     @abstractmethod
-    def play(self, game_state: Dict[str, Any]) -> Dict[str, Any]:
+    def play(self, game_state: dict) -> dict:
         # To be implemented by concrete subclasses
         pass
 
-    def get_card_info(self) -> Dict[str, Any]:
+    def get_card_info(self) -> dict:
         # Return base card data as a dictionary
         return {
             "name": self.name,
@@ -28,8 +27,8 @@ class Card(ABC):
             "rarity": self.rarity
         }
 
-    def is_playable(self, avaliable_mana: int) -> bool:
+    def is_playable(self, available_mana: int) -> bool:
         # Compare cost against available mana pool
-        if avaliable_mana >= self.cost:
+        if available_mana >= self.cost:
             return True
         return False
